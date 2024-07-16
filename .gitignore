@@ -4,3 +4,4 @@ download/
 __pycache__/
 
 .env
+result.png

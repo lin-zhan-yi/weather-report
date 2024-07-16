@@ -1,6 +1,7 @@
 import imager
 import weather
 from PIL import Image,ImageDraw,ImageFont
+from googletrans import Translator
 
 
 title_dict={
@@ -11,24 +12,6 @@ title_dict={
     "舒適度":[1610, 160],
 }
 
-def weather_words(weather):
-    feel_dict={
-        '寒冷至稍有寒意': 'cold',
-        '寒冷至舒適':'slightly cold',
-        '非常寒冷':'very cold',
-        '陰時多雲短暫雨':'cloudy',
-        '陰有雨':'cloudy',
-        '多雲短暫雨':'cloudy',
-        '多雲時陰':'cloudy',
-        '多雲':'partly cloudy',
-        '晴時多雲':'cludy',
-        '陰短暫陣雨或雷雨':'brief showers or thunderstorms',
-        '陰短暫陣雨':'Cloudy with brief showers',
-        '多雲時陰短暫陣雨':'Cloudy with brief showers',
-        '陰時多雲短暫陣雨或雷雨':'Cloudy with brief showers or thunderstorms',
-        '多雲時晴' :'Cloudy and sunny'
-    }
-    return f"weather {feel_dict[weather]}"
 
 if __name__=="__main__":
     weather_list=weather.getWeatherData()
@@ -56,7 +39,10 @@ if __name__=="__main__":
             date_dict["datatime"].append(datetime_list)
         print(date_dict)
 
-    background_list=imager.getBackground(weather=weather_words(weather_list[0]["Wx"]),count=5)
+    translator=Translator()
+    translated_keyword=translator.translate(weather_list[0]["Wx"],dest='zh-TW')
+    background_list=imager.getBackground(weather=translated_keyword.text,count=1)
+
     if background_list is not None:
         Noto = ImageFont.truetype('assets/NotoSansTC-VariableFont_wght.ttf', size=40)
         print("notosans",Noto.get_variation_names())
