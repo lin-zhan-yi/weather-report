@@ -1,7 +1,6 @@
 name: Genarate Image and send to Line Notify
 
 on:
-  push:
   schedule:
     - cron:"5 6,18 * * *"
 
