@@ -9,7 +9,7 @@ load_dotenv()
 RANDON_PHOTO_URL='https://api.unsplash.com/photos/random'
 api_key=getenv("UNSPLASH_API_KEY")
 def listImageURL(raw_data):
-    links=[photo["urls"]["regular"]for photo in raw_data]
+    links=[photo["urls"]["full"]for photo in raw_data]
     return links
 
 def downloadImage(links):
